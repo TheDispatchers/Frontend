@@ -15,9 +15,9 @@ namespace iTaxApp
 
         async void OnLogin(object sender, EventArgs e)
         {
-            //await Navigation.PushAsync(new MainPage());
+            await Navigation.PushAsync(new MainPage());
             
-            
+            /*
             if (username.Text != null || password.Text != null)
             {
                 client = new User(username.Text, Core.LoginSystem.CalculateMD5Hash(password.Text));
@@ -40,7 +40,7 @@ namespace iTaxApp
             {
                 await this.DisplayAlert("Login", "Make sure you entered correct credentials and that you are connected to the internet.", "Continue");
             }
-            
+            */
         }
 
         async void OnRegister(object sender, EventArgs e)

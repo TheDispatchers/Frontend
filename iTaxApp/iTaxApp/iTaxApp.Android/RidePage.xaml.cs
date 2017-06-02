@@ -8,18 +8,22 @@ using Xamarin.Forms.Xaml;
 namespace iTaxApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    private partial class RidePage : ContentPage
+    public partial class RidePage : ContentPage
     {
         /* VARIABLES DECLARATION */
         Geocoder geoCoder;
         Pin pin;
+        Pin destinationPin;
         private string fromLatitude;
         private string fromLongitude;
         private string toLatitude;
         private string toLongitude;
+        private Position position;
+        private Position destinationPosition;
+        private Plugin.Geolocator.Abstractions.Position pos;
 
         /* CONSTRUCTOR */
-        private RidePage()
+        public RidePage()
         {
             InitializeComponent();
             geoCoder = new Geocoder();
@@ -36,8 +40,8 @@ namespace iTaxApp
             MyMap.Pins.Clear(); //Clear all previous pins that were on the map.
 
             var locator = CrossGeolocator.Current; // Create the geo locator
-            var pos = await locator.GetPositionAsync(timeoutMilliseconds: 10000); // Get the current position from the device's GPS HW
-            var position = new Position(pos.Latitude, pos.Longitude); // Instantiate the Position with the data obtained from the device
+            pos = await locator.GetPositionAsync(timeoutMilliseconds: 10000); // Get the current position from the device's GPS HW
+            position = new Position(pos.Latitude, pos.Longitude); // Instantiate the Position with the data obtained from the device
 
             reverseGeocodedOutputLabel.Text = "Searching..";  // Verification for user, that the device is searching for location.
 
@@ -57,11 +61,21 @@ namespace iTaxApp
             MyMap.Pins.Add(pin); // Add the pin to the map.
 
             DecodeAddress(position); // Decode the GPS Coordinates into an address *** More info in method description ***
-
-            if (destination.Text != null) //Prevent trying to decode address to GPS coordinates if the address field is empty.
+            try
             {
-                DecodeCoords(); // Decode the address to GPS Coordinates *** More info in method description ***
+                double km = CalcApproxKm(position, destinationPosition);
+                MapSpan span = MapSpan.FromCenterAndRadius(position, Distance.FromKilometers(km));
+                MyMap.MoveToRegion(span); // Move the map to the selected region.
             }
+            catch (Exception)
+            {
+                MapSpan span = MapSpan.FromCenterAndRadius(position, Distance.FromKilometers(5));
+                MyMap.MoveToRegion(span); // Move the map to the selected region.
+                throw;
+            }
+            
+            
+
         }
 
         /// <summary>
@@ -95,6 +109,7 @@ namespace iTaxApp
         /// </summary>
         private async void DecodeCoords()
         {
+            MyMap.Pins.Remove(destinationPin);
             var addressToCode = destination.Text;
             var approximateLocations = await geoCoder.GetPositionsForAddressAsync(addressToCode);
             foreach (var destinationpos in approximateLocations)
@@ -102,17 +117,35 @@ namespace iTaxApp
                 geocodedOutputLabel.Text = destinationpos.Latitude + ", " + destinationpos.Longitude + "\n";
                 toLatitude = destinationpos.Latitude.ToString();
                 toLongitude = destinationpos.Longitude.ToString();
-                pin = new Pin
+                destinationPosition = destinationpos;
+                destinationPin = new Pin
                 {
                     Type = PinType.Place,
                     Position = destinationpos,
                     Label = "Destination",
                     Address = "Your taxi will drop you off here."
                 };
-                MyMap.Pins.Add(pin);
+                MyMap.Pins.Add(destinationPin);
             }
         }
 
+        private void OnUnfocus()
+        {
+            if (destination.Text != null) //Prevent trying to decode address to GPS coordinates if the address field is empty.
+            {
+                DecodeCoords(); // Decode the address to GPS Coordinates *** More info in method description ***
+                try
+                {
+                    MapSpan span = MapSpan.FromCenterAndRadius(position, Distance.FromKilometers(5));
+                    MyMap.MoveToRegion(span); // Move the map to the selected region.
+                    
+                }
+                catch
+                {
+
+                }
+            }
+        }
         /// <summary>
         /// This method opens the ExtrasPage for user to choose extras from.
         /// </summary>
@@ -135,6 +168,18 @@ namespace iTaxApp
             ride = new Ride(fromLatitude, fromLongitude, toLatitude, toLongitude, sessionKey);
             object obj = SynchronousSocketClient.StartClient("oderRide", ride);
             Navigation.PushAsync(new ConfirmPage());
+        }
+
+        private double CalcApproxKm(Position start, Position finish)
+        {
+            double km = 0.0;
+            double latitude = start.Latitude - finish.Latitude;
+            double longitude = start.Longitude - finish.Latitude;
+            if (latitude < 0) { latitude = (-latitude); }
+            if (longitude < 0) { longitude = (-longitude); }
+            double average = (longitude + latitude) * 0.5;
+            km = average * 111.32;
+            return km;
         }
     }
 }
