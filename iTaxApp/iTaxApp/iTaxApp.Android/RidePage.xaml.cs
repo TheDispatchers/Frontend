@@ -8,18 +8,18 @@ using Xamarin.Forms.Xaml;
 namespace iTaxApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RidePage : ContentPage
+    private partial class RidePage : ContentPage
     {
         /* VARIABLES DECLARATION */
         Geocoder geoCoder;
         Pin pin;
-        string fromLatitude;
-        string fromLongitude;
-        string toLatitude;
-        string toLongitude;
+        private string fromLatitude;
+        private string fromLongitude;
+        private string toLatitude;
+        private string toLongitude;
 
         /* CONSTRUCTOR */
-        public RidePage()
+        private RidePage()
         {
             InitializeComponent();
             geoCoder = new Geocoder();
@@ -31,7 +31,7 @@ namespace iTaxApp
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        async void OnFind(object sender, EventArgs e)
+        private async void OnFind(object sender, EventArgs e)
         {
             MyMap.Pins.Clear(); //Clear all previous pins that were on the map.
 
@@ -70,7 +70,7 @@ namespace iTaxApp
         /// As this function by default returns multiple possible addresses, counter is attached to it to limit the output to only one address.
         /// </summary>
         /// <param name="position"></param>
-        public async void DecodeAddress(Position position)
+        private async void DecodeAddress(Position position)
         {
             string[] myAddress = new string[3];
             {
@@ -93,7 +93,7 @@ namespace iTaxApp
         /// Then it places a pin on the map with the destination and some information for the user.
         /// It interacts with the UI directly.
         /// </summary>
-        public async void DecodeCoords()
+        private async void DecodeCoords()
         {
             var addressToCode = destination.Text;
             var approximateLocations = await geoCoder.GetPositionsForAddressAsync(addressToCode);
@@ -118,7 +118,7 @@ namespace iTaxApp
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void OnExtras(object sender, EventArgs e)
+        private void OnExtras(object sender, EventArgs e)
         {
             Navigation.PushAsync(new ExtrasPage());
         }
@@ -128,7 +128,7 @@ namespace iTaxApp
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void OnOrder(object sender, EventArgs e)
+        private void OnOrder(object sender, EventArgs e)
         {
             Ride ride;
             string sessionKey = Convert.ToString(App.Current.Properties["sessionKey"]);
