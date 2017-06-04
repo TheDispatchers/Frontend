@@ -18,6 +18,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)LoginSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NewUser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Ride.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RideDetails.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SynchronousSocketClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)User.cs" />
   </ItemGroup>

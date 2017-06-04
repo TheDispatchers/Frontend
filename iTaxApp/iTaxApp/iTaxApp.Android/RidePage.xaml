@@ -35,8 +35,6 @@
                     MapType="Satellite"
                     />
                 <Button x:Name="extrasButton" Text="Add extras.." Clicked="OnExtras"/>
-                <Label Text="Price:"/>
-                <Label Text="price here" XAlign="End"/>
                 <Button x:Name="orderButton" Text="Place order" Clicked="OnOrder"/>
             </StackLayout>
         </ScrollView>

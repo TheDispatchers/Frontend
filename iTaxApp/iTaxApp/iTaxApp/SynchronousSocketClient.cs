@@ -64,6 +64,18 @@ namespace iTaxApp
                             o = newUser;
                             break;
                         case "orderRide":
+                            Ride getRide = (Ride)o;
+                            json = JsonConvert.SerializeObject(getRide);
+                            Console.WriteLine(json);
+                            byte[] getNewRide = Encoding.ASCII.GetBytes(json);
+                            bytesSent = sender.Send(getNewRide);
+                            bytesRec = sender.Receive(bytes);
+                            response = Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                            Console.WriteLine(response);
+                            getRide.response = response;
+                            o = getRide;
+                            break; //getDistanceTimePrice
+                        case "getDistanceTimePrice":
                             Ride ride = (Ride)o;
                             json = JsonConvert.SerializeObject(ride);
                             Console.WriteLine(json);
@@ -74,7 +86,7 @@ namespace iTaxApp
                             Console.WriteLine(response);
                             ride.response = response;
                             o = ride;
-                            break;
+                            break; //
                     }
                     //sender.Shutdown(SocketShutdown.Both);
                     //sender.Close();

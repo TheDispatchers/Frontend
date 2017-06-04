@@ -25,5 +25,9 @@ namespace iTaxApp
             Navigation.PushAsync(new SettingsPage());
         }
 
+        void OnLogout(object sender, EventArgs e)
+        {
+        }
+
     }
 }

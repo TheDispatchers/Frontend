@@ -4,6 +4,7 @@ using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
+using Newtonsoft.Json;
 
 namespace iTaxApp
 {
@@ -63,7 +64,7 @@ namespace iTaxApp
             DecodeAddress(position); // Decode the GPS Coordinates into an address *** More info in method description ***
             try
             {
-                double km = CalcApproxKm(position, destinationPosition);
+                double km = 10.0; //CalcApproxKm(position, destinationPosition);
                 MapSpan span = MapSpan.FromCenterAndRadius(position, Distance.FromKilometers(km));
                 MyMap.MoveToRegion(span); // Move the map to the selected region.
             }
@@ -73,9 +74,6 @@ namespace iTaxApp
                 MyMap.MoveToRegion(span); // Move the map to the selected region.
                 throw;
             }
-            
-            
-
         }
 
         /// <summary>
@@ -138,7 +136,6 @@ namespace iTaxApp
                 {
                     MapSpan span = MapSpan.FromCenterAndRadius(position, Distance.FromKilometers(5));
                     MyMap.MoveToRegion(span); // Move the map to the selected region.
-                    
                 }
                 catch
                 {
@@ -166,7 +163,20 @@ namespace iTaxApp
             Ride ride;
             string sessionKey = Convert.ToString(App.Current.Properties["sessionKey"]);
             ride = new Ride(fromLatitude, fromLongitude, toLatitude, toLongitude, sessionKey);
-            object obj = SynchronousSocketClient.StartClient("oderRide", ride);
+            ride.function = "getDistanceTimePrice";
+            object obj = SynchronousSocketClient.StartClient("getDistanceTimePrice", ride);
+            ride = (Ride)obj;
+            Console.WriteLine("Response: " + ride.response);
+            RideDetails details = JsonConvert.DeserializeObject<RideDetails>(ride.response);
+            App.Current.Properties["distance"] = details.distance;
+            App.Current.Properties["time"] = details.time;
+            App.Current.Properties["price"] = details.price;
+            App.Current.Properties["startLoc"] = details.start;
+            App.Current.Properties["destination"] = details.destination;
+            App.Current.Properties["fromLat"] = fromLatitude;
+            App.Current.Properties["fromLng"] = fromLongitude;
+            App.Current.Properties["toLat"] = toLatitude;
+            App.Current.Properties["toLng"] = toLongitude;
             Navigation.PushAsync(new ConfirmPage());
         }
 
