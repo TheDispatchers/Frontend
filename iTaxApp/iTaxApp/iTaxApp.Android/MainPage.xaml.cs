@@ -17,21 +17,23 @@ namespace iTaxApp
 
         void OnHistory(object sender, EventArgs e)
         {
-
+            Navigation.PushAsync(new HistoryPage());
         }
         void OnSettings(object sender, EventArgs e)
         {
             Navigation.PushAsync(new SettingsPage());
         }
 
-        void OnLogout(object sender, EventArgs e)
+        async void OnLogout(object sender, EventArgs e)
         {
-            SQLite.CreateDatabase();
-
-            /* //TODO: make this async!!
             await Navigation.PopToRootAsync();
             await Navigation.PushAsync(new LoginPage());
-            Navigation.RemovePage(this);*/
+            Navigation.RemovePage(this);
+        }
+        void OnClear(object sender, EventArgs e)
+        {
+            //TO DO: Ask user if he actually wants to do this.
+            SQLite.ClearHistory();
         }
 
     }

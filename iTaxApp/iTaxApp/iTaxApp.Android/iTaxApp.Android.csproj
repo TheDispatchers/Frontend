@@ -177,15 +177,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AwaitConfirmationPage.xaml.cs">
-      <DependentUpon>AwaitConfirmationPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ConfirmPage.xaml.cs">
       <DependentUpon>ConfirmPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CustomMapRenderer.cs" />
     <Compile Include="ExtrasPage.xaml.cs">
       <DependentUpon>ExtrasPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HistoryPage.xaml.cs">
+      <DependentUpon>HistoryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -195,8 +194,6 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MapPage.cs" />
-    <Compile Include="MessageAndroid.cs" />
     <Compile Include="RegisterPage.xaml.cs">
       <DependentUpon>RegisterPage.xaml</DependentUpon>
     </Compile>
@@ -256,12 +253,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AwaitConfirmationPage.xaml">
+    <EmbeddedResource Include="ConfirmPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ConfirmPage.xaml">
+    <EmbeddedResource Include="HistoryPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

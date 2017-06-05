@@ -1,11 +1,21 @@
 ﻿using SQLite;
 using System;
+using System.Collections.ObjectModel;
 using System.IO;
+using Xamarin.Forms;
 
 namespace iTaxApp
 {
     class SQLite
     {
+        public static void ConnectDatabase()
+        {
+            string dbPath = Path.Combine(
+                 Environment.GetFolderPath(Environment.SpecialFolder.Personal),
+                 "iTax.db3");
+            App.Current.Properties["dbPath"] = dbPath;
+            var db = new SQLiteConnection(dbPath);
+        }
         public static void CreateDatabase()
         {
             Console.WriteLine("Creating database, if it doesn't already exist");
@@ -16,6 +26,11 @@ namespace iTaxApp
             var db = new SQLiteConnection(dbPath);
             db.CreateTable<TempData>();
             db.CreateTable<RideHistory>();
+        }
+        public static void ClearHistory()
+        {
+            var db = new SQLiteConnection(Convert.ToString(App.Current.Properties["dbPath"]));
+            db.DeleteAll<RideHistory>();
         }
         public static void InsertTempData(TempData data)
         {
@@ -58,6 +73,28 @@ namespace iTaxApp
             }
             Console.WriteLine("READ: " + data.ToString());
             return data;
+        }
+
+        public static void InsertHistoryData(RideHistory history)
+        {
+            var db = new SQLiteConnection(Convert.ToString(App.Current.Properties["dbPath"]));
+            Console.WriteLine("WRITE: " + history.ToString());
+            db.Insert(history);
+            Console.WriteLine("Writing data...");
+        }
+        public static ObservableCollection<RideHistory> ReadHistoryData()
+        {
+            var db = new SQLiteConnection(Convert.ToString(App.Current.Properties["dbPath"]));
+            var table = db.Table<RideHistory>();
+            Console.WriteLine("Reading data...");
+            var listView = new ListView();
+            ObservableCollection<RideHistory> historyList = new ObservableCollection<RideHistory>();
+            foreach (var s in table)
+            {
+                historyList.Add(new RideHistory() { ID = s.ID, user = s.user, driverID = s.driverID, rideDate = s.rideDate, price = s.price, rating = s.rating });
+            }
+            listView.ItemsSource = historyList;
+            return historyList;
         }
     }
 }

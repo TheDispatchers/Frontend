@@ -183,19 +183,22 @@ namespace iTaxApp
             };
             SQLite.CreateDatabase();
             SQLite.InsertTempData(data);
+
             Navigation.PushAsync(new ConfirmPage());
         }
 
-        private double CalcApproxKm(Position start, Position finish)
+        private static double CalcDist(double lat1, double lat2, double lon1, double lon2)
         {
-            double km = 0.0;
-            double latitude = start.Latitude - finish.Latitude;
-            double longitude = start.Longitude - finish.Latitude;
-            if (latitude < 0) { latitude = (-latitude); }
-            if (longitude < 0) { longitude = (-longitude); }
-            double average = (longitude + latitude) * 0.5;
-            km = average * 111.32;
-            return km;
+            const double r = 6371; // meters
+
+            var sdlat = Math.Sin((lat2 - lat1) / 2);
+            var sdlon = Math.Sin((lon2 - lon1) / 2);
+            var q = sdlat * sdlat + Math.Cos(lat1) * Math.Cos(lat2) * sdlon * sdlon;
+            var d = 2 * r * Math.Asin(Math.Sqrt(q));
+
+            return d;
         }
+
+        
     }
 }

@@ -18,6 +18,7 @@
                 <Button x:Name="getRideButton" Text="Get a ride!" Clicked="OnCreateRide"/>
                 <Button x:Name="myRidesButton" Text="My Rides" Clicked="OnHistory"/>
                 <Button x:Name="settingsButton" Text="Settings" Clicked="OnSettings"/>
+                <Button x:Name="clearButton" Text="Clear history" Clicked="OnClear"/>
                 <Button x:Name="logoutButton" Text="Log out" Clicked="OnLogout"/>
             </StackLayout>
         </ScrollView>

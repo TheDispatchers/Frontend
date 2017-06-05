@@ -23,5 +23,11 @@ namespace iTaxApp
 
         [JsonProperty(PropertyName = "price")]
         public string price { get; set; }
+
+        [JsonProperty(PropertyName = "driverID")]
+        public string driver { get; set; }
+
+        [JsonProperty(PropertyName = "currentDate")]
+        public string date { get; set; }
     }
 }

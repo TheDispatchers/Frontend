@@ -12,10 +12,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)CustomMap.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IDialer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LoginSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MessageAndroid.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NewUser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Ride.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RideDetails.cs" />

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Java.Util;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,28 +35,28 @@ namespace iTaxApp.Droid
         {
             await Navigation.PopToRootAsync();
         }
-        void OnConfirm(object sender, EventArgs e)
+        async void OnConfirm(object sender, EventArgs e)
         {
             Ride ride;
-
-            /*string sessionKey = Convert.ToString(App.Current.Properties["sessionKey"]);
-            string fromLatitude = Convert.ToString(App.Current.Properties["fromLat"]);
-            string fromLongitude = Convert.ToString(App.Current.Properties["fromLng"]);
-            string toLatitude = Convert.ToString(App.Current.Properties["toLat"]);
-            string toLongitude = Convert.ToString(App.Current.Properties["toLng"]);*/
-
-
             TempData data = SQLite.ReadTempData();
             string sessionKey = data.sessionKey;
             string fromLatitude = data.fromLat;
             string fromLongitude = data.fromLng;
             string toLatitude = data.toLat;
             string toLongitude = data.toLng;
+            Console.WriteLine(System.DateTime.Today);
             ride = new Ride(fromLatitude, fromLongitude, toLatitude, toLongitude, sessionKey);
             ride.function = "orderRide";
             object obj = SynchronousSocketClient.StartClient("orderRide", ride);
             ride = (Ride)obj;
             Console.WriteLine("Response: " + ride.response);
+            RideDetails details = JsonConvert.DeserializeObject<RideDetails>(ride.response);
+            RideHistory history = new RideHistory() { driverID = details.driver, user = Convert.ToString(App.Current.Properties["user"]), price = details.price, rating = "N/A", rideDate = details.date };
+            SQLite.ConnectDatabase();
+            SQLite.InsertHistoryData(history);
+            await this.DisplayAlert("Ride", "Your taxi is on it's way. ETA: " + details.time, "OK");
+            await Navigation.PopToRootAsync();
+
         }
     }
 }

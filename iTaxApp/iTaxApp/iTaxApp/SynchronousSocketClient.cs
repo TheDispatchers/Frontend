@@ -3,6 +3,7 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using Xamarin.Forms;
 
 namespace iTaxApp
 {
@@ -79,6 +80,7 @@ namespace iTaxApp
                             break;
                         case "orderRide":
                             Ride getRide = (Ride)o;
+                            bytesRec = 0;
                             json = JsonConvert.SerializeObject(getRide);
                             Console.WriteLine(json);
                             byte[] getNewRide = Encoding.ASCII.GetBytes(json);

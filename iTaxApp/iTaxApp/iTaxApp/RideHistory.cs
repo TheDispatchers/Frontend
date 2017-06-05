@@ -1,7 +1,4 @@
 ﻿using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace iTaxApp
 {
@@ -10,7 +7,7 @@ namespace iTaxApp
     {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
-        public string userID { get; set; }
+        public string user { get; set; }
         public string driverID { get; set; }
         public string rideDate { get; set; }
         public string price { get; set; }
@@ -18,7 +15,7 @@ namespace iTaxApp
 
         public override string ToString()
         {
-            return string.Format("[RideHistory: ID={0}, userID={1}, driverID={2}, rideData={3}, price={4}, rating={5}]", ID, userID, driverID, rideDate, price, rating);
+            return string.Format("[RideHistory: ID={0}, userID={1}, driverID={2}, rideData={3}, price={4}, rating={5}]", ID, user, driverID, rideDate, price, rating);
         }
     }
 }
