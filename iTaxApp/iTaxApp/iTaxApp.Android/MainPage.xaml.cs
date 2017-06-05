@@ -16,7 +16,6 @@ namespace iTaxApp
         }
 
         void OnHistory(object sender, EventArgs e)
-
         {
 
         }
@@ -27,6 +26,12 @@ namespace iTaxApp
 
         void OnLogout(object sender, EventArgs e)
         {
+            SQLite.CreateDatabase();
+
+            /* //TODO: make this async!!
+            await Navigation.PopToRootAsync();
+            await Navigation.PushAsync(new LoginPage());
+            Navigation.RemovePage(this);*/
         }
 
     }

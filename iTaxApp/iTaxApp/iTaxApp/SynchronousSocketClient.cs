@@ -51,6 +51,20 @@ namespace iTaxApp
                             user.sessionKey = sessionKey;
                             o = user;
                             break;
+                        case "logout":
+                            user = (User)o;
+                            json = JsonConvert.SerializeObject(user);
+                            Console.WriteLine(json);
+                            byte[] logout = Encoding.ASCII.GetBytes(json);
+                            bytesSent = 0;
+                            bytesRec = 0;
+                            bytesSent = sender.Send(logout);
+                            bytesRec = sender.Receive(bytes);
+                            response = Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                            Console.WriteLine(response);
+                            user.sessionKey = null;
+                            o = user;
+                            break;
                         case "register":
                             NewUser newUser = (NewUser)o;
                             json = JsonConvert.SerializeObject(newUser);

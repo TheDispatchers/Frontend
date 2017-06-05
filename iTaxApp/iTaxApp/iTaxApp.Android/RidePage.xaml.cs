@@ -168,15 +168,21 @@ namespace iTaxApp
             ride = (Ride)obj;
             Console.WriteLine("Response: " + ride.response);
             RideDetails details = JsonConvert.DeserializeObject<RideDetails>(ride.response);
-            App.Current.Properties["distance"] = details.distance;
-            App.Current.Properties["time"] = details.time;
-            App.Current.Properties["price"] = details.price;
-            App.Current.Properties["startLoc"] = details.start;
-            App.Current.Properties["destination"] = details.destination;
-            App.Current.Properties["fromLat"] = fromLatitude;
-            App.Current.Properties["fromLng"] = fromLongitude;
-            App.Current.Properties["toLat"] = toLatitude;
-            App.Current.Properties["toLng"] = toLongitude;
+            TempData data = new TempData()
+            {
+                sessionKey = sessionKey,
+                distance = details.distance,
+                time = details.time,
+                price = details.price,
+                startLoc = details.start,
+                destination = details.destination,
+                fromLat = fromLatitude,
+                fromLng = fromLongitude,
+                toLat = toLatitude,
+                toLng = toLongitude
+            };
+            SQLite.CreateDatabase();
+            SQLite.InsertTempData(data);
             Navigation.PushAsync(new ConfirmPage());
         }
 
