@@ -3,6 +3,7 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using Xamarin.Forms;
 
 namespace iTaxApp
 {
@@ -51,6 +52,20 @@ namespace iTaxApp
                             user.sessionKey = sessionKey;
                             o = user;
                             break;
+                        case "logout":
+                            user = (User)o;
+                            json = JsonConvert.SerializeObject(user);
+                            Console.WriteLine(json);
+                            byte[] logout = Encoding.ASCII.GetBytes(json);
+                            bytesSent = 0;
+                            bytesRec = 0;
+                            bytesSent = sender.Send(logout);
+                            bytesRec = sender.Receive(bytes);
+                            response = Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                            Console.WriteLine(response);
+                            user.sessionKey = null;
+                            o = user;
+                            break;
                         case "register":
                             NewUser newUser = (NewUser)o;
                             json = JsonConvert.SerializeObject(newUser);
@@ -64,6 +79,19 @@ namespace iTaxApp
                             o = newUser;
                             break;
                         case "orderRide":
+                            Ride getRide = (Ride)o;
+                            bytesRec = 0;
+                            json = JsonConvert.SerializeObject(getRide);
+                            Console.WriteLine(json);
+                            byte[] getNewRide = Encoding.ASCII.GetBytes(json);
+                            bytesSent = sender.Send(getNewRide);
+                            bytesRec = sender.Receive(bytes);
+                            response = Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                            Console.WriteLine(response);
+                            getRide.response = response;
+                            o = getRide;
+                            break; //getDistanceTimePrice
+                        case "getDistanceTimePrice":
                             Ride ride = (Ride)o;
                             json = JsonConvert.SerializeObject(ride);
                             Console.WriteLine(json);
@@ -74,7 +102,7 @@ namespace iTaxApp
                             Console.WriteLine(response);
                             ride.response = response;
                             o = ride;
-                            break;
+                            break; //
                     }
                     //sender.Shutdown(SocketShutdown.Both);
                     //sender.Close();

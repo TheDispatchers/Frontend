@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="iTaxApp.Droid.ConfirmPage">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness"
+                    iOS="20, 40, 20, 20"
+                    Android="20, 20, 20, 20"
+                    WinPhone="20, 20, 20, 20" />
+    </ContentPage.Padding>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout VerticalOptions="FillAndExpand"
+                     HorizontalOptions="FillAndExpand"
+                     Orientation="Vertical"
+                     Spacing="15">
+                <Label Text="Please review the details:" FontSize="Large"/>
+                <Label Text="Your start location:" FontSize="Medium"/>
+                <Label x:Name="startLoc" Text=""/>
+                <Label Text="Your destination:" FontSize="Medium"/>
+                <Label x:Name="destination" Text=""/>
+                <Label Text="Distance:" FontSize="Medium"/>
+                <Label x:Name="distance" Text=""/>
+                <Label Text="Estimated ride time:" FontSize="Medium"/>
+                <Label x:Name="time" Text=""/>
+                <Label Text="Estimated price in kr.:" FontSize="Medium"/>
+                <Label x:Name="price" Text=""/>
+                <Button x:Name="confirmButton" Text="Confirm order" Clicked="OnConfirm"/>
+                <Button x:Name="cancelButton" Text="Cancel" Clicked="OnCancel"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
+    

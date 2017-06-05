@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
-             xmlns:local="clr-namespace:iTaxApp;assembly=iTaxApp.Android"
              x:Class="iTaxApp.RidePage">
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness"
@@ -17,25 +16,25 @@
                      Orientation="Vertical"
                      Spacing="15">
                 <Label Text="Your destination:"/>
-                <Entry x:Name="destination" Placeholder="Your destination"/>
+                <Entry x:Name="destination" Placeholder="Your destination" Unfocused="OnUnfocus"/>
                 <Label Text="Your start location:"/>
                 <Entry x:Name="location" Placeholder="Your start location"/>
+                <Button x:Name="refreshButton" Text="Find my location" Clicked="OnFind"/>
                 <Label x:Name="addressLbl" Text="Your current location:"/>
                 <Label x:Name="reverseGeocodedOutputLabel"/>
                 <Label x:Name="latitude"  Text="Latitude: "/>
                 <Label x:Name="longitude" Text="Longitude: "/>
                 <Label Text="Your destination's GPS coordinates:"/>
                 <Label x:Name="geocodedOutputLabel"/>
-                <local:CustomMap x:Name="customMap" MapType="Street" WidthRequest="320" HeightRequest="200" />
-                <Button x:Name="refreshButton" Text="Calculate route" Clicked="OnRefresh"/>
-                <maps:Map WidthRequest="320" HeightRequest="200"
+                <!-- <local:CustomMap x:Name="customMap" MapType="Street" WidthRequest="320" HeightRequest="200" /> -->
+                <!-- xmlns:local="clr-namespace:iTaxApp;assembly=iTaxApp.Android" -->
+                <!-- THIS GOES TO ContentPage -->
+                <maps:Map WidthRequest="320" HeightRequest="250"
                     x:Name="MyMap"
                     IsShowingUser="true"
                     MapType="Satellite"
                     />
                 <Button x:Name="extrasButton" Text="Add extras.." Clicked="OnExtras"/>
-                <Label Text="Price:"/>
-                <Label Text="price here" XAlign="End"/>
                 <Button x:Name="orderButton" Text="Place order" Clicked="OnOrder"/>
             </StackLayout>
         </ScrollView>

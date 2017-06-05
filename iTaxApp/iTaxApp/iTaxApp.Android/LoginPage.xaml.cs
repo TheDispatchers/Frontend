@@ -30,7 +30,8 @@ namespace iTaxApp
             object obj = SynchronousSocketClient.StartClient("login", client);
             client = (User)obj;
             App.Current.Properties["sessionKey"] = client.sessionKey;
-            if (!client.sessionKey.Equals("invalid"))
+            App.Current.Properties["user"] = client.username;
+            if (!client.sessionKey.Equals("invalid") && !client.sessionKey.Equals("") && !client.sessionKey.Equals(null) && client.sessionKey.Length==32)
             {
                 await this.DisplayAlert("Login", "User " + client.username + " logged in.", "Continue");
                 await Navigation.PushAsync(new MainPage());
