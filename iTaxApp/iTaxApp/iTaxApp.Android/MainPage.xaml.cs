@@ -5,6 +5,7 @@ namespace iTaxApp
 {
     public partial class MainPage : ContentPage
     {
+        int counter = 0;
         public MainPage()
         {
             InitializeComponent();
@@ -22,6 +23,22 @@ namespace iTaxApp
         void OnSettings(object sender, EventArgs e)
         {
             Navigation.PushAsync(new SettingsPage());
+        }
+        protected override bool OnBackButtonPressed()
+        {
+            if (counter == 0)
+            {
+                DependencyService.Get<IMessage>().ShortAlert("Press again to log out and exit.");
+                counter += 1;
+                return true;
+            }
+            else
+            {
+                counter = 0;
+                //logout();
+                return false;
+            }
+
         }
 
         async void OnLogout(object sender, EventArgs e)

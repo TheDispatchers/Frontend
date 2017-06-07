@@ -14,6 +14,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)IMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LoginSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MailSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageAndroid.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NewUser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Ride.cs" />

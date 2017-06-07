@@ -45,6 +45,7 @@ namespace iTaxApp
                                     if (newUser.response.Equals("success", StringComparison.OrdinalIgnoreCase))
                                     {
                                         DependencyService.Get<IMessage>().ShortAlert("Server says: " + newUser.response);
+                                        // EMAIL HERE
                                         await this.DisplayAlert("Register", "User " + newUser.username + " created. You should get a confirmation e-mail shortly.", "OK");
                                         await Navigation.PopAsync();
                                         
