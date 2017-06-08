@@ -10,6 +10,7 @@ namespace iTaxApp
     {
         public HistoryPage()
         {
+            
             InitializeComponent();
             HistoryView.ItemsSource = SQLite.ReadHistoryData();
             

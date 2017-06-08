@@ -51,7 +51,7 @@ namespace iTaxApp.Droid
             ride = (Ride)obj;
             Console.WriteLine("Response: " + ride.response);
             RideDetails details = JsonConvert.DeserializeObject<RideDetails>(ride.response);
-            RideHistory history = new RideHistory() { driverID = details.driver, user = Convert.ToString(App.Current.Properties["user"]), price = details.price, rating = "N/A", rideDate = details.date };
+            RideHistory history = new RideHistory() { driverID = details.driver, user = Convert.ToString(App.Current.Properties["user"]), price = data.price, rating = "N/A", rideDate = details.date };
             SQLite.ConnectDatabase();
             SQLite.InsertHistoryData(history);
             await this.DisplayAlert("Ride", "Your taxi is on it's way. ETA: " + details.time, "OK");

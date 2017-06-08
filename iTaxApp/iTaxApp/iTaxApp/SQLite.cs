@@ -87,13 +87,13 @@ namespace iTaxApp
             var db = new SQLiteConnection(Convert.ToString(App.Current.Properties["dbPath"]));
             var table = db.Table<RideHistory>();
             Console.WriteLine("Reading data...");
-            var listView = new ListView();
+            var listView = new ListView(); //Maybe not necessary here?
             ObservableCollection<RideHistory> historyList = new ObservableCollection<RideHistory>();
             foreach (var s in table)
             {
                 historyList.Add(new RideHistory() { ID = s.ID, user = s.user, driverID = s.driverID, rideDate = s.rideDate, price = s.price, rating = s.rating });
             }
-            listView.ItemsSource = historyList;
+            listView.ItemsSource = historyList; //Maybe not necessary here?
             return historyList;
         }
     }

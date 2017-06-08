@@ -31,6 +31,7 @@ namespace iTaxApp
                 // Create a TCP/IP  socket.
                 Socket sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 // Connect the socket to the remote endpoint. Catch any errors.
+                sender.ReceiveTimeout = 30000;
                 try
                 {
                     sender.Connect(remoteEP);

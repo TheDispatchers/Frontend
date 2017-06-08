@@ -11,7 +11,7 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                <Label Text="** DATE **   ** DRIVER ID **                       ** PRICE **"/>
+                <Label x:Name="topLabel" Text="   DATE @ TIME |  DRIVER ID  |  RATING  |  PRICE   "/>
                 <ListView x:Name="HistoryView">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -22,6 +22,7 @@
                                     <StackLayout Orientation="Horizontal">
                                         <Label Text="{Binding rideDate}" />
                                         <Label Text="{Binding driverID}" TextColor="#f35e20" />
+                                        <Label Text="{Binding rating}" />
                                         <Label Text="{Binding price}" HorizontalOptions="EndAndExpand" TextColor="#503026" />
                                     </StackLayout>
                                 </StackLayout>
