@@ -41,7 +41,7 @@ namespace iTaxApp
             MyMap.Pins.Clear(); //Clear all previous pins that were on the map.
 
             var locator = CrossGeolocator.Current; // Create the geo locator
-            pos = await locator.GetPositionAsync(timeoutMilliseconds: 10000); // Get the current position from the device's GPS HW
+            pos = await locator.GetPositionAsync(timeoutMilliseconds: 10000); // Get the current fused position from the device's GPS HW
             position = new Position(pos.Latitude, pos.Longitude); // Instantiate the Position with the data obtained from the device
 
             reverseGeocodedOutputLabel.Text = "Searching..";  // Verification for user, that the device is searching for location.
