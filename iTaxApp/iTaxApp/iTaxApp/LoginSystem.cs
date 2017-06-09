@@ -6,6 +6,11 @@ namespace Core
 {
     public static class LoginSystem
     {
+        /// <summary>
+        /// Method to calculate a 32-character long MD5 hash using cryptography.
+        /// </summary>
+        /// <param name="input"> any string </param>
+        /// <returns> MD5 hash string </returns>
         public static string CalculateMD5Hash(string input)
 
         {

@@ -104,7 +104,7 @@ namespace iTaxApp
                             Console.WriteLine(response);
                             getRide.response = response;
                             o = getRide;
-                            break; //getDistanceTimePrice
+                            break;
                         case "getDistanceTimePrice":
                             Ride ride = (Ride)o;
                             json = JsonConvert.SerializeObject(ride);
@@ -146,6 +146,10 @@ namespace iTaxApp
                 return false;
             }
         }
+        /// <summary>
+        /// Method to test the socket connection to the server.
+        /// </summary>
+        /// <returns></returns>
         public static bool TestConnection()
         {
             int bytesSent;
