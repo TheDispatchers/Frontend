@@ -1,10 +1,10 @@
 ﻿using iTaxApp.Droid;
+using Newtonsoft.Json;
 using Plugin.Geolocator;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
-using Newtonsoft.Json;
 
 namespace iTaxApp
 {
@@ -23,13 +23,11 @@ namespace iTaxApp
         private Position destinationPosition;
         private Plugin.Geolocator.Abstractions.Position pos;
 
-        /* CONSTRUCTOR */
         public RidePage()
         {
             InitializeComponent();
             geoCoder = new Geocoder();
         }
-
         /// <summary>
         /// Method that runs when the "Find my location" button is pressed. 
         /// It finds the current position of the device and uses other method to translate it to an address.
@@ -39,19 +37,14 @@ namespace iTaxApp
         private async void OnFind(object sender, EventArgs e)
         {
             MyMap.Pins.Clear(); //Clear all previous pins that were on the map.
-
             var locator = CrossGeolocator.Current; // Create the geo locator
-            pos = await locator.GetPositionAsync(timeoutMilliseconds: 10000); // Get the current position from the device's GPS HW
+            pos = await locator.GetPositionAsync(timeoutMilliseconds: 10000); // Get the current fused position from the device's GPS HW
             position = new Position(pos.Latitude, pos.Longitude); // Instantiate the Position with the data obtained from the device
-
             reverseGeocodedOutputLabel.Text = "Searching..";  // Verification for user, that the device is searching for location.
-
             latitude.Text = "Latitude: " + pos.Latitude; // Update label.
             longitude.Text = "Longitude: " + pos.Longitude; // Update label.
-
             fromLatitude = pos.Latitude.ToString(); // Store the value for later access.
             fromLongitude = pos.Longitude.ToString(); // Store the value for later access.
-
             pin = new Pin /* Create new Pin on the map - Start location */
             {
                 Type = PinType.Place,
@@ -60,7 +53,6 @@ namespace iTaxApp
                 Address = "Your taxi will pick you up here."
             };
             MyMap.Pins.Add(pin); // Add the pin to the map.
-
             DecodeAddress(position); // Decode the GPS Coordinates into an address *** More info in method description ***
             try
             {
@@ -75,7 +67,6 @@ namespace iTaxApp
                 throw;
             }
         }
-
         /// <summary>
         /// This method uses the GeoCoder plugin to get the most probable address for the GPS position provided to it. 
         /// The GeoCoder works asynchronously so the method can't actually return a value, therefore it updates the relevant label instead.
@@ -139,7 +130,7 @@ namespace iTaxApp
                 }
                 catch
                 {
-
+                    //Nothing to do here..
                 }
             }
         }
@@ -183,22 +174,16 @@ namespace iTaxApp
             };
             SQLite.CreateDatabase();
             SQLite.InsertTempData(data);
-
             Navigation.PushAsync(new ConfirmPage());
         }
-
         private static double CalcDist(double lat1, double lat2, double lon1, double lon2)
         {
             const double r = 6371; // meters
-
             var sdlat = Math.Sin((lat2 - lat1) / 2);
             var sdlon = Math.Sin((lon2 - lon1) / 2);
             var q = sdlat * sdlat + Math.Cos(lat1) * Math.Cos(lat2) * sdlon * sdlon;
             var d = 2 * r * Math.Asin(Math.Sqrt(q));
-
             return d;
         }
-
-        
     }
 }

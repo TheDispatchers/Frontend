@@ -1,11 +1,5 @@
-﻿using Java.Util;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -18,19 +12,13 @@ namespace iTaxApp.Droid
         {
             InitializeComponent();
             TempData data = SQLite.ReadTempData();
+            //Set the labels.
             startLoc.Text = data.startLoc;
             destination.Text = data.destination;
             distance.Text = data.distance;
             time.Text = data.time;
             price.Text = data.price;
-            /*
-            startLoc.Text = Convert.ToString(App.Current.Properties["startLoc"]);
-            destination.Text = Convert.ToString(App.Current.Properties["destination"]);
-            distance.Text = Convert.ToString(App.Current.Properties["distance"]);
-            time.Text = Convert.ToString(App.Current.Properties["time"]);
-            price.Text = Convert.ToString(App.Current.Properties["price"]);*/
         }
-
         async void OnCancel(object sender, EventArgs e)
         {
             await Navigation.PopToRootAsync();
@@ -51,12 +39,11 @@ namespace iTaxApp.Droid
             ride = (Ride)obj;
             Console.WriteLine("Response: " + ride.response);
             RideDetails details = JsonConvert.DeserializeObject<RideDetails>(ride.response);
-            RideHistory history = new RideHistory() { driverID = details.driver, user = Convert.ToString(App.Current.Properties["user"]), price = details.price, rating = "N/A", rideDate = details.date };
+            RideHistory history = new RideHistory() { driverID = details.driver, user = Convert.ToString(App.Current.Properties["user"]), price = data.price, rating = "N/A", rideDate = details.date };
             SQLite.ConnectDatabase();
             SQLite.InsertHistoryData(history);
             await this.DisplayAlert("Ride", "Your taxi is on it's way. ETA: " + details.time, "OK");
             await Navigation.PopToRootAsync();
-
         }
     }
 }

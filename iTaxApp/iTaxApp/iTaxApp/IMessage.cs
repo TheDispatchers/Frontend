@@ -1,10 +1,4 @@
-﻿using iTaxApp;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace iTaxApp
-
+﻿namespace iTaxApp
 {
     public interface IMessage
     {

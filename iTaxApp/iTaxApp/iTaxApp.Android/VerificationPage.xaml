@@ -1,6 +1,7 @@
-﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="iTaxApp.ExtrasPage">
+             x:Class="iTaxApp.VerificationPage">
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness"
                     iOS="20, 40, 20, 20"
@@ -13,10 +14,10 @@
                      HorizontalOptions="FillAndExpand"
                      Orientation="Vertical"
                      Spacing="15">
-                <Label Text="Under construction.."/>
-                <Slider x:Name ="slider" Minimum="0" Maximum="5"/>
+                <Label Text="Enter verification code:" FontSize="Large" XAlign="Center"/>
+                <Entry x:Name="code" Placeholder="E-mail verification code"/>
+                <Button x:Name="verifyButton" Text="Verify" Clicked="OnVerify"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
 </ContentPage>
-    

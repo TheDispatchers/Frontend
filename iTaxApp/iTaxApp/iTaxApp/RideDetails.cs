@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace iTaxApp
 {
     public class RideDetails
     {
-
-        // Do this for each property you want to map.
         [JsonProperty(PropertyName = "destination")]
         public string destination { get; set; }
 

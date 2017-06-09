@@ -3,7 +3,6 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using Xamarin.Forms;
 
 namespace iTaxApp
 {
@@ -16,6 +15,7 @@ namespace iTaxApp
             string json;
             string response;
             User user;
+            NewUser newUser;
 
             // Data buffer for incoming data.
             byte[] bytes = new byte[1024];
@@ -31,6 +31,7 @@ namespace iTaxApp
                 // Create a TCP/IP  socket.
                 Socket sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 // Connect the socket to the remote endpoint. Catch any errors.
+                sender.ReceiveTimeout = 30000;
                 try
                 {
                     sender.Connect(remoteEP);
@@ -67,11 +68,23 @@ namespace iTaxApp
                             o = user;
                             break;
                         case "register":
-                            NewUser newUser = (NewUser)o;
+                            newUser = (NewUser)o;
                             json = JsonConvert.SerializeObject(newUser);
                             Console.WriteLine(json);
                             byte[] register = Encoding.ASCII.GetBytes(json);
                             bytesSent = sender.Send(register);
+                            bytesRec = sender.Receive(bytes);
+                            response = Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                            Console.WriteLine(response);
+                            newUser.response = response;
+                            o = newUser;
+                            break;
+                        case "confirmRegister":
+                            newUser = (NewUser)o;
+                            json = JsonConvert.SerializeObject(newUser);
+                            Console.WriteLine(json);
+                            byte[] confirm = Encoding.ASCII.GetBytes(json);
+                            bytesSent = sender.Send(confirm);
                             bytesRec = sender.Receive(bytes);
                             response = Encoding.ASCII.GetString(bytes, 0, bytesRec);
                             Console.WriteLine(response);
@@ -90,7 +103,7 @@ namespace iTaxApp
                             Console.WriteLine(response);
                             getRide.response = response;
                             o = getRide;
-                            break; //getDistanceTimePrice
+                            break;
                         case "getDistanceTimePrice":
                             Ride ride = (Ride)o;
                             json = JsonConvert.SerializeObject(ride);
@@ -132,6 +145,10 @@ namespace iTaxApp
                 return false;
             }
         }
+        /// <summary>
+        /// Method to test the socket connection to the server.
+        /// </summary>
+        /// <returns></returns>
         public static bool TestConnection()
         {
             int bytesSent;
@@ -169,6 +186,5 @@ namespace iTaxApp
                 return false;
             }
         }
-
     }
 }

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace iTaxApp
+﻿namespace iTaxApp
 {
-    class NewUser
+    public class NewUser
     {
         public string function { get; set; }
         public string email { get; set; }
@@ -13,6 +9,7 @@ namespace iTaxApp
         public string firstName { get; set; }
         public string lastName { get; set; }
         public int carTypeID { get; set; }
+        public string code { get; set; }
         public string response { get; set; }
         public NewUser(string mail, string uname, string pass, string fname, string lname, int car)
         {

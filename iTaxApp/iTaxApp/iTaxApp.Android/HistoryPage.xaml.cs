@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace iTaxApp
@@ -12,7 +10,6 @@ namespace iTaxApp
         {
             InitializeComponent();
             HistoryView.ItemsSource = SQLite.ReadHistoryData();
-            
         }
     }
 }
