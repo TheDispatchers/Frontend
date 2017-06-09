@@ -50,8 +50,6 @@ namespace iTaxApp
                                             ". You will be prompted to enter said code next.", "OK");
                                         //await Navigation.PopAsync();
                                         await Navigation.PushAsync(new VerificationPage(newUser));
-                                        Navigation.RemovePage(this);
-
                                     }
                                     else
                                     {

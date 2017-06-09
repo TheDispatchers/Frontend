@@ -11,12 +11,14 @@ namespace iTaxApp
         public VerificationPage(NewUser newUser)
         {
             InitializeComponent();
+            this.newUser = newUser;
         }
         async void OnVerify()
         {
             if (code.Text != null)
             {
                 newUser.function = "confirmRegister";
+                newUser.code = code.Text;
                 object obj = SynchronousSocketClient.StartClient("confirmRegister", newUser);
                 newUser = (NewUser)obj;
                 if (newUser.response.Equals("success", StringComparison.OrdinalIgnoreCase))

@@ -9,6 +9,7 @@
         public string firstName { get; set; }
         public string lastName { get; set; }
         public int carTypeID { get; set; }
+        public string code { get; set; }
         public string response { get; set; }
         public NewUser(string mail, string uname, string pass, string fname, string lname, int car)
         {
