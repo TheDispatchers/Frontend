@@ -13,12 +13,10 @@ namespace iTaxApp
         {
             InitializeComponent();
         }
-
         async void OnLogin(object sender, EventArgs e)
         {
-            //await Navigation.PushAsync(new MainPage());
-
-            
+            //await Navigation.PushAsync(new MainPage()); //quick override of login in case server is down, can't interact with the server even if it comes online meanwhile. FOR TESTING ONLY!
+            counter = 0;
             if (username.Text != null || password.Text != null)
             {
                 client = new User(username.Text, Core.LoginSystem.CalculateMD5Hash(password.Text));
@@ -41,7 +39,7 @@ namespace iTaxApp
             else
             {
                 await this.DisplayAlert("Login", "Make sure you entered correct credentials and that you are connected to the internet.", "Continue");
-            }    
+            }
         }
         protected override bool OnBackButtonPressed()
         {
@@ -56,11 +54,10 @@ namespace iTaxApp
                 counter = 0;
                 return false;
             }
-
         }
         async void OnRegister(object sender, EventArgs e)
-
         {
+            counter = 0;
             if (await this.DisplayAlert(
                     "Register",
                     "Would you like to create a new account?",

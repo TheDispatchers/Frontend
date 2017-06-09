@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,19 +7,15 @@ namespace iTaxApp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class VerificationPage : ContentPage
     {
-        NewUser newUser;
-        public VerificationPage()
+        private NewUser newUser;
+        public VerificationPage(NewUser newUser)
         {
             InitializeComponent();
         }
-
-        
         async void OnVerify()
         {
             if (code.Text != null)
             {
-                newUser.username = Convert.ToString(App.Current.Properties["username"]);
-                newUser.password = Convert.ToString(App.Current.Properties["password"]);
                 newUser.function = "confirmRegister";
                 object obj = SynchronousSocketClient.StartClient("confirmRegister", newUser);
                 newUser = (NewUser)obj;
@@ -43,8 +34,6 @@ namespace iTaxApp
             {
                 DependencyService.Get<IMessage>().ShortAlert("Verification code can NOT be empty.");
             }
-
         }
     }
-
 }

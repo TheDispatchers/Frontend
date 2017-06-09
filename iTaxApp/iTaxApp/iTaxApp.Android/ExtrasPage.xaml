@@ -15,7 +15,6 @@
                      Spacing="15">
                 <Label Text="Under construction.."/>
                 <Slider x:Name ="slider" Minimum="0" Maximum="5"/>
-                
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

@@ -2,7 +2,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
-using Xamarin.Forms;
 
 namespace iTaxApp
 {

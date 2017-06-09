@@ -3,7 +3,6 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using Xamarin.Forms;
 
 namespace iTaxApp
 {
@@ -187,6 +186,5 @@ namespace iTaxApp
                 return false;
             }
         }
-
     }
 }

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace iTaxApp
+﻿namespace iTaxApp
 {
-    class NewUser
+    public class NewUser
     {
         public string function { get; set; }
         public string email { get; set; }

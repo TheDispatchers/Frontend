@@ -1,5 +1,4 @@
-﻿
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 
 namespace Core
@@ -12,7 +11,6 @@ namespace Core
         /// <param name="input"> any string </param>
         /// <returns> MD5 hash string </returns>
         public static string CalculateMD5Hash(string input)
-
         {
             MD5 md5 = MD5.Create();
             byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
@@ -24,7 +22,6 @@ namespace Core
                 sb.Append(hash[i].ToString("x2"));
             }
             return sb.ToString();
-
         }
     }
 }

@@ -10,12 +10,10 @@ namespace iTaxApp
         {
             InitializeComponent();
         }
-
         void OnCreateRide(object sender, EventArgs e)
         {
             Navigation.PushAsync(new RidePage());
         }
-
         void OnHistory(object sender, EventArgs e)
         {
             Navigation.PushAsync(new HistoryPage());
@@ -38,9 +36,7 @@ namespace iTaxApp
                 //logout();
                 return false;
             }
-
         }
-
         async void OnLogout(object sender, EventArgs e)
         {
             await Navigation.PopToRootAsync();
@@ -52,6 +48,5 @@ namespace iTaxApp
             //TO DO: Ask user if he actually wants to do this.
             SQLite.ClearHistory();
         }
-
     }
 }

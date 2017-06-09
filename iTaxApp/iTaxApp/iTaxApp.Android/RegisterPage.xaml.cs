@@ -1,7 +1,6 @@
 ﻿using iTaxApp;
 using System;
 using System.Collections.Generic;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 [assembly: Xamarin.Forms.Dependency(typeof(MessageAndroid))]
@@ -38,7 +37,7 @@ namespace iTaxApp
                             {
                                 if (password.Text.Equals(confirmpassword.Text))
                                 {
-                                    NewUser newUser = new NewUser(email.Text, username.Text, Core.LoginSystem.CalculateMD5Hash(password.Text), firstname.Text, lastname.Text, cartype.SelectedIndex+1);
+                                    NewUser newUser = new NewUser(email.Text, username.Text, Core.LoginSystem.CalculateMD5Hash(password.Text), firstname.Text, lastname.Text, cartype.SelectedIndex + 1);
                                     newUser.function = "register";
                                     App.Current.Properties["username"] = newUser.username;
                                     App.Current.Properties["password"] = newUser.password;
@@ -47,12 +46,12 @@ namespace iTaxApp
                                     if (newUser.response.Equals("success", StringComparison.OrdinalIgnoreCase))
                                     {
                                         DependencyService.Get<IMessage>().ShortAlert("Server says: " + newUser.response);
-                                        await this.DisplayAlert("Register", "We have sent you an e-mail with a verification code to " + newUser.email + 
+                                        await this.DisplayAlert("Register", "We have sent you an e-mail with a verification code to " + newUser.email +
                                             ". You will be prompted to enter said code next.", "OK");
                                         //await Navigation.PopAsync();
-                                        await Navigation.PushAsync(new VerificationPage());
+                                        await Navigation.PushAsync(new VerificationPage(newUser));
                                         Navigation.RemovePage(this);
-                                        
+
                                     }
                                     else
                                     {

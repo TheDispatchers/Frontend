@@ -1,15 +1,6 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
-using Android.Locations;
-using Android.Content;
-using Android.Util;
-using Xamarin.Forms;
 
 namespace iTaxApp.Droid
 {
@@ -20,10 +11,8 @@ namespace iTaxApp.Droid
         {
             Finish();
         }
-
         protected override void OnCreate(Bundle bundle)
         {
-
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
             Xamarin.FormsMaps.Init(this, bundle); //This initiates the Maps API
@@ -31,8 +20,6 @@ namespace iTaxApp.Droid
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new iTaxApp.App());
         }
-
-
     }
 }
 
