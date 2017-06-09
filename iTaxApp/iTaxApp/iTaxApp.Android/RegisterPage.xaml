@@ -23,7 +23,7 @@
                 <Entry x:Name="lastname" Placeholder="Last Name"/>
                 <Picker x:Name="cartype" Title="Select a preferred car type"/>
                 <Label Text="You can change these details in the Settings later."/>
-                <Button x:Name="registerButton" Text="Register" Clicked="OnRegister"/>
+                <Button x:Name="registerButton" Text="Continue" Clicked="OnRegister"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

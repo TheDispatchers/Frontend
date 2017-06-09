@@ -16,6 +16,7 @@ namespace iTaxApp
             string json;
             string response;
             User user;
+            NewUser newUser;
 
             // Data buffer for incoming data.
             byte[] bytes = new byte[1024];
@@ -68,11 +69,23 @@ namespace iTaxApp
                             o = user;
                             break;
                         case "register":
-                            NewUser newUser = (NewUser)o;
+                            newUser = (NewUser)o;
                             json = JsonConvert.SerializeObject(newUser);
                             Console.WriteLine(json);
                             byte[] register = Encoding.ASCII.GetBytes(json);
                             bytesSent = sender.Send(register);
+                            bytesRec = sender.Receive(bytes);
+                            response = Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                            Console.WriteLine(response);
+                            newUser.response = response;
+                            o = newUser;
+                            break;
+                        case "confirmRegister":
+                            newUser = (NewUser)o;
+                            json = JsonConvert.SerializeObject(newUser);
+                            Console.WriteLine(json);
+                            byte[] confirm = Encoding.ASCII.GetBytes(json);
+                            bytesSent = sender.Send(confirm);
                             bytesRec = sender.Receive(bytes);
                             response = Encoding.ASCII.GetString(bytes, 0, bytesRec);
                             Console.WriteLine(response);
